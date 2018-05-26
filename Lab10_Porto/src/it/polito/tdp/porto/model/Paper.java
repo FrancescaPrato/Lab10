@@ -1,5 +1,8 @@
 package it.polito.tdp.porto.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Paper {
 
 	private int eprintid;
@@ -8,6 +11,7 @@ public class Paper {
 	private String publication;
 	private String type;
 	private String types;
+	private List<Author> listaAutori;
 
 	public Paper(int eprintid, String title, String issn, String publication, String type, String types) {
 		this.eprintid = eprintid;
@@ -16,6 +20,7 @@ public class Paper {
 		this.publication = publication;
 		this.type = type;
 		this.types = types;
+		listaAutori = new ArrayList();
 	}
 
 	public int getEprintid() {
@@ -66,10 +71,72 @@ public class Paper {
 		this.types = types;
 	}
 
+	public List<Author> getListaAutori() {
+		return listaAutori;
+	}
+
+	public void setListaAutori(Author autore) {
+		this.listaAutori.add(autore);
+	}
+
 	@Override
 	public String toString() {
 		return "Paper [eprintid=" + eprintid + ", title=" + title + ", issn=" + issn + ", publication=" + publication
 				+ ", type=" + type + ", types=" + types + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + eprintid;
+		result = prime * result + ((issn == null) ? 0 : issn.hashCode());
+		result = prime * result + ((publication == null) ? 0 : publication.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((types == null) ? 0 : types.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Paper other = (Paper) obj;
+		if (eprintid != other.eprintid)
+			return false;
+		if (issn == null) {
+			if (other.issn != null)
+				return false;
+		} else if (!issn.equals(other.issn))
+			return false;
+		if (publication == null) {
+			if (other.publication != null)
+				return false;
+		} else if (!publication.equals(other.publication))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		if (types == null) {
+			if (other.types != null)
+				return false;
+		} else if (!types.equals(other.types))
+			return false;
+		return true;
+	}
+	
+	
 
 }
