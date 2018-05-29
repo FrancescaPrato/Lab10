@@ -2,6 +2,7 @@ package it.polito.tdp.porto;
 
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -10,6 +11,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 import it.polito.tdp.porto.model.Author;
 import it.polito.tdp.porto.model.Model;
+import it.polito.tdp.porto.model.Paper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -38,6 +40,7 @@ public class PortoController {
     void handleCoautori(ActionEvent event) {
     	
     	if(boxPrimo.getValue()!=null) {
+    		txtResult.clear();
     		List<Author> coautori=model.getCoautori(boxPrimo.getValue());
     		String s="";
     		for(Author a : coautori) {
@@ -58,8 +61,28 @@ public class PortoController {
     void handleSequenza(ActionEvent event) {
     	
     	if(boxSecondo.getValue()!=null) {
-    		Path path=model.getPercorso(boxPrimo.getValue(),boxSecondo.getValue());
-    		txtResult.appendText(path.toString());
+    			
+    		 txtResult.clear();
+    		
+    		 List<Paper> lista= new ArrayList<Paper>();
+    		 lista =model.getPercorso3(boxPrimo.getValue(),boxSecondo.getValue());
+    		 txtResult.appendText("il percorso tra "+boxPrimo.getValue()+" e "+boxSecondo.getValue()+" è :\n");
+    		 for(Paper p: lista)
+    			 txtResult.appendText(p+"\n");
+    		 
+    		 
+    		 lista= new ArrayList<Paper>();
+    		 txtResult.appendText("il percorso tra "+boxPrimo.getValue()+" e "+boxSecondo.getValue()+" è :\n");
+    		 for(Paper p: model.getPercorso2(boxPrimo.getValue(),boxSecondo.getValue()))
+    			 txtResult.appendText(p+"\n");
+    		
+    		 
+    		 lista= new ArrayList<Paper>();
+    		 lista =model.getPercorso1(boxPrimo.getValue(),boxSecondo.getValue());
+    		txtResult.appendText("il percorso tra "+boxPrimo.getValue()+" e "+boxSecondo.getValue()+" è :\n");
+    		 for(Paper p: lista)
+    			 txtResult.appendText(p+"\n");
+    		
     	}
 
     }

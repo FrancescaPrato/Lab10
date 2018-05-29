@@ -98,4 +98,30 @@ public class PortoDAO {
 		}
 	}
 
+	public Paper getArticolo(Author a, Author a1) {
+		final String sql = "select c.eprintid from creator as c, creator as c1 where c.authorid=? and c1.authorid=? and c.eprintid=c1.eprintid  ";
+
+		try {
+			Connection conn = DBConnect.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, a.getId());
+			st.setInt(2, a1.getId());
+			ResultSet rs = st.executeQuery();
+			Paper paper =null;
+
+			if(rs.next()) {
+				paper = new Paper(rs.getInt("eprintid"), null,null,
+				null, null, null);
+				//articoli.add(paperIdMap.get(paper));
+				
+			}
+
+			return paper;
+
+		} catch (SQLException e) {
+			 e.printStackTrace();
+			throw new RuntimeException("Errore Db");
+		}
+	}
+
 }
